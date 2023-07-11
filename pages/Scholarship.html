@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scholarship Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #333;
+      padding: 10px 20px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    nav a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    main {
+      flex: 1;
+      padding-bottom: 20px;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+    .scholarship {
+      background-color: #f4f4f4;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Scholarship Search</h1>
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="searchForm">
+      <label for="country">Country:</label>
+      <select id="country">
+        <option value="Canada">Canada</option>
+        <option value="United States">United States</option>
+        <option value="Netherlands">Netherlands</option>
+        <!-- Add more options here -->
+      </select><br>
+
+      <label for="field">Field of Study:</label>
+      <select id="field">
+        <option value="Engineering">Engineering</option>
+        <option value="Biology">Biology</option>
+        <option value="Business">Business</option>
+        <option value="Computer Science">Computer Science</option>
+        <!-- Add more options here -->
+      </select><br>
+
+      <label for="language">Language:</label>
+      <select id="language">
+        <option value="English">English</option>
+        <option value="French">French</option>
+        <option value="Dutch">Dutch</option>
+        <!-- Add more options here -->
+      </select><br>
+      
+      <button type="submit">Search</button>
+    </form>
+    
+    <div id="results"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Scholarship Search. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const scholarships = [
+      {
+        name: "Engineering Scholarship 1",
+        country: "United States",
+        field: "Engineering",
+        language: "English",
+        description: "This scholarship is for engineering students with a focus on innovation and creativity."
+      },
+      {
+        name: "Engineering Scholarship 2",
+        country: "United States",
+        field: "Engineering",
+        language: "English",
+        description: "A merit-based scholarship for outstanding engineering students."
+      },
+      {
+        name: "Biology Scholarship",
+        country: "Canada",
+        field: "Biology",
+        language: "English",
+        description: "A scholarship for biology students interested in research and conservation."
+      },
+      {
+        name: "Business Scholarship",
+        country: "United Kingdom",
+        field: "Business",
+        language: "English",
+        description: "This scholarship is for outstanding business students with entrepreneurial aspirations."
+      },
+      {
+        name: "Computer Science Scholarship",
+        country: "Australia",
+        field: "Computer Science",
+        language: "English",
+        description: "A merit-based scholarship for computer science students with a passion for technology."
+      }
+    ];
+
+    const searchForm = document.getElementById("searchForm");
+    const resultsDiv = document.getElementById("results");
+
+    searchForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const country = document.getElementById("country").value;
+      const field = document.getElementById("field").value;
+      const language = document.getElementById("language").value;
+      
+      const matchingScholarships = scholarships.filter(function(scholarship) {
+        return (
+          country.toLowerCase() === scholarship.country.toLowerCase() &&
+          field.toLowerCase() === scholarship.field.toLowerCase() &&
+          language.toLowerCase() === scholarship.language.toLowerCase()
+        );
+      });
+      
+      displayResults(matchingScholarships);
+    });
+
+    function displayResults(scholarships) {
+      resultsDiv.innerHTML = "";
+      
+      if (scholarships.length === 0) {
+        resultsDiv.innerHTML = "<p>No scholarships found.</p>";
+      } else {
+        scholarships.forEach(function(scholarship) {
+          const scholarshipDiv = document.createElement("div");
+          scholarshipDiv.classList.add("scholarship");
+          scholarshipDiv.innerHTML = `
+            <h3>${scholarship.name}</h3>
+            <p>${scholarship.description}</p>
+          `;
+          resultsDiv.appendChild(scholarshipDiv);
+        });
+      }
+      
+      resultsDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
